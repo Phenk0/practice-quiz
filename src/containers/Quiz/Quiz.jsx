@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { useParams } from "react-router-dom";
 
 import ActiveQuiz from "../../components/ActiveQuiz/ActiveQuiz";
 import FinishedQuiz from "../../components/FinishedQuiz/FinishedQuiz";
@@ -88,6 +89,10 @@ class Quiz extends Component {
     });
   };
 
+  componentDidMount() {
+    console.log("Quiz ID= ", this.props.params.id);
+  }
+
   render() {
     return (
       <div className={classes.Quiz}>
@@ -116,4 +121,9 @@ class Quiz extends Component {
   }
 }
 
-export default Quiz;
+const withRouter = (Component) => (props) => {
+  const params = useParams();
+  return <Component params={params} {...props} />;
+};
+
+export default withRouter(Quiz);
